@@ -1,14 +1,16 @@
 #include "child.h"
 
-adr_modul newElementModul(string judul, string durasi, string kesulitan) {
-// I.S. -
-// F.S. Terbentuk node modul baru dengan info yang diberikan
-    adr_modul P = new elm_modul;
-    P->info.judul = judul;
-    P->info.durasi = durasi;
-    P->info.difficulty = kesulitan;
-    P->next = nullptr;
-    P->prev = nullptr;
-    return P;
+void createModul(string judul, string durasi, string diff, adr_modul &M) {
+    M = new elm_modul;
+    M->info.judul = judul;
+    M->info.durasi = durasi;
+    M->info.difficulty = diff;
+    M->next = nullptr;
+    M->prev = nullptr;
 }
-using namespace std;
+
+void dealokasiModul(adr_modul &M) {
+    // Hanya disiapkan jika butuh delete fisik
+    delete M;
+    M = nullptr;
+}

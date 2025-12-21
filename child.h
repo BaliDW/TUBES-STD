@@ -1,9 +1,9 @@
-#ifndef child_H_INCLUDED
-#define child_H_INCLUDED
+#ifndef CHILD_H_INCLUDED
+#define CHILD_H_INCLUDED
 
 #include <iostream>
-#include <string>
 using namespace std;
+
 struct infotype_modul {
     string judul;
     string durasi;
@@ -17,5 +17,8 @@ struct elm_modul {
     adr_modul next;
     adr_modul prev;
 };
-adr_modul newElementModul(string judul, string durasi, string kesulitan);
-#endif
+
+void createModul(string judul, string durasi, string diff, adr_modul &M);
+void dealokasiModul(adr_modul &M);
+
+#endif // CHILD_H_INCLUDED
