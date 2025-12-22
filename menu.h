@@ -5,7 +5,6 @@
 #include "parent.h" 
 using namespace std;
 
-// Deklarasi Menu & Logika Aplikasi
 void addDataKursus(List_Kursus &L);
 void addDataModul(List_Kursus &L);
 void showAll(List_Kursus L);

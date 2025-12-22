@@ -10,7 +10,6 @@ void createModul(string judul, string durasi, string diff, adr_modul &M) {
 }
 
 void dealokasiModul(adr_modul &M) {
-    // Hanya disiapkan jika butuh delete fisik
     delete M;
     M = nullptr;
 }

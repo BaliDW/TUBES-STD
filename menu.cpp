@@ -20,11 +20,11 @@ void addDataModul(List_Kursus &L) {
 
     adr_kursus P = searchKursus(L, targetKode);
     if (P != nullptr) {
-        cout << "Judul Modul (Tanpa Spasi): ";
+        cout << "Judul Modul: ";
         cin >> judul;
         cout << "Durasi (cth: 100menit): ";
         cin >> durasi;
-        cout << "Difficulty (Easy/Hard): ";
+        cout << "Kesulitan: ";
         cin >> diff;
 
         adr_modul M;

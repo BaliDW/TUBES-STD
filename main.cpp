@@ -3,9 +3,6 @@
 int main() {
     List_Kursus L;
     createList(L);
-    
-    // Panggil menu utama
     main_menu(L);
-    
     return 0;
 }
