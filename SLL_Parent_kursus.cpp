@@ -26,15 +26,6 @@ void insertLastKursus(List_Kursus &L, adr_kursus P) {
 
 adr_kursus searchKursus(List_Kursus L, string kodeKursus) {
     adr_kursus P = L.first;
-    while (P != nullptr) {
-        if (P->info.kodeKursus == kodeKursus) {
-            P = nullptr; // Agar while berhenti
-        } else {
-            P = P->next;
-        }
-    }
-    // Cari lagi untuk return
-    P = L.first;
     while (P != nullptr && P->info.kodeKursus != kodeKursus) {
         P = P->next;
     }
@@ -69,11 +60,9 @@ void deleteModulFromKursus(adr_kursus P, string judulModul) {
                 } else if (C->next == nullptr) {
                     C->prev->next = nullptr;
                 } else {
-                    C->prev->next = C->next;
-                    C->next->prev = C->prev;
+                    C->prev->next = C->next; 
+                    C->next->prev = C->prev; 
                 }
-                C->next = nullptr;
-                C->prev = nullptr;
                 found = true;
             } else {
                 C = C->next;

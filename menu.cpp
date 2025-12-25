@@ -2,7 +2,7 @@
 
 void addDataKursus(List_Kursus &L) {
     string nama, kode;
-    cout << "Masukkan Nama Kursus (Tanpa Spasi): ";
+    cout << "Masukkan Nama Kursus: ";
     cin >> nama;
     cout << "Masukkan Kode Kursus: ";
     cin >> kode;
@@ -22,7 +22,7 @@ void addDataModul(List_Kursus &L) {
     if (P != nullptr) {
         cout << "Judul Modul: ";
         cin >> judul;
-        cout << "Durasi (cth: 100menit): ";
+        cout << "Durasi: ";
         cin >> durasi;
         cout << "Kesulitan: ";
         cin >> diff;
@@ -87,7 +87,7 @@ void deleteDataModul(List_Kursus &L) {
         cout << "Judul Modul yg dihapus: ";
         cin >> judul;
         deleteModulFromKursus(P, judul);
-        cout << "Proses unlinking selesai." << endl;
+        cout << "Modul Dihapus" << endl;
     } else {
         cout << "Kursus tidak ditemukan." << endl;
     }
@@ -108,6 +108,10 @@ void deleteDataKursus(List_Kursus &L) {
         }
 
         if (P != nullptr) {
+            while (P->firstModul != nullptr) {
+                string judulModul = P->firstModul->info.judul;
+                deleteModulFromKursus(P, judulModul);
+            }
             if (P == L.first) {
                 L.first = P->next;
             } else {
@@ -131,8 +135,14 @@ void showStatistics(List_Kursus L) {
         P = P->next;
         while (P != nullptr) {
             int curV = countModul(P);
-            if (curV > maxV) { maxV = curV; maxP = P; }
-            if (curV < minV) { minV = curV; minP = P; }
+            if (curV > maxV) { 
+                maxV = curV; 
+                maxP = P; 
+            }
+            if (curV < minV) { 
+                minV = curV; 
+                minP = P; 
+            }
             P = P->next;
         }
 
