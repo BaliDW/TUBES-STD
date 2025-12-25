@@ -19,6 +19,5 @@ struct elm_modul {
 };
 
 void createModul(string judul, string durasi, string diff, adr_modul &M);
-void dealokasiModul(adr_modul &M);
 
 #endif // CHILD_H_INCLUDED

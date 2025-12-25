@@ -96,24 +96,29 @@ void deleteDataKursus(List_Kursus &L) {
     string targetKode;
     cout << "Hapus Kode Kursus: ";
     cin >> targetKode;
-
+    
     if (L.first == nullptr) return;
-
+    
     adr_kursus P = L.first;
     adr_kursus prev = nullptr;
-
+    
     while(P != nullptr && P->info.kodeKursus != targetKode) {
         prev = P;
         P = P->next;
     }
-
+    
     if (P != nullptr) {
+        while (P->firstModul != nullptr) {
+            string judulModul = P->firstModul->info.judul;
+            deleteModulFromKursus(P, judulModul); 
+        }
         if (P == L.first) {
             L.first = P->next;
         } else {
             prev->next = P->next;
         }
         P->next = nullptr;
+        
         cout << "Kursus beserta modulnya berhasil di-unlink." << endl;
     } else {
         cout << "Kursus tidak ditemukan." << endl;

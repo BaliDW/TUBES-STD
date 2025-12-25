@@ -13,14 +13,18 @@ void createKursus(string nama, string kode, adr_kursus &P) {
 }
 
 void insertLastKursus(List_Kursus &L, adr_kursus P) {
-    if (L.first == nullptr) {
-        L.first = P;
+    if (searchKursus(L, P->info.kodeKursus) != nullptr) {
+        cout << "Kode kursus sudah ada!" << endl;
     } else {
-        adr_kursus Q = L.first;
-        while (Q->next != nullptr) {
-            Q = Q->next;
+        if (L.first == nullptr) {
+            L.first = P;
+        } else {
+            adr_kursus Q = L.first;
+            while (Q->next != nullptr) {
+                Q = Q->next;
+            }
+            Q->next = P;
         }
-        Q->next = P;
     }
 }
 
@@ -54,7 +58,6 @@ void deleteModulFromKursus(adr_kursus P, string judulModul) {
     adr_modul C = P->firstModul;
     while (C != nullptr) {
         if (C->info.judul == judulModul) {
-            // Unlink Logic (Tanpa delete memori, hanya putus pointer)
             if (C == P->firstModul) {
                 P->firstModul = C->next;
                 if (P->firstModul != nullptr) {
@@ -66,7 +69,6 @@ void deleteModulFromKursus(adr_kursus P, string judulModul) {
                 C->prev->next = C->next;
                 C->next->prev = C->prev;
             }
-            // Isolasi
             C->next = nullptr;
             C->prev = nullptr;
             return;

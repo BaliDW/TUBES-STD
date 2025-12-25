@@ -8,8 +8,3 @@ void createModul(string judul, string durasi, string diff, adr_modul &M) {
     M->next = nullptr;
     M->prev = nullptr;
 }
-
-void dealokasiModul(adr_modul &M) {
-    delete M;
-    M = nullptr;
-}
