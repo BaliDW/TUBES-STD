@@ -38,23 +38,24 @@ void addDataModul(List_Kursus &L) {
 
 void showAll(List_Kursus L) {
     if (L.first == nullptr) {
-        cout << "Data Kosong." << endl; return;
-    }
-    adr_kursus P = L.first;
-    while (P != nullptr) {
-        cout << "--------------------------------" << endl;
-        cout << "KURSUS: " << P->info.namaKursus << " (" << P->info.kodeKursus << ")" << endl;
-        adr_modul Q = P->firstModul;
-        if (Q == nullptr) {
-            cout << "   (Tidak ada modul)" << endl;
-        } else {
-            while (Q != nullptr) {
-                cout << "   -> " << Q->info.judul
-                     << " [" << Q->info.durasi << "]" << endl;
-                Q = Q->next;
+        cout << "Data Kosong." << endl;
+    } else {
+        adr_kursus P = L.first;
+        while (P != nullptr) {
+            cout << "--------------------------------" << endl;
+            cout << "KURSUS: " << P->info.namaKursus << " (" << P->info.kodeKursus << ")" << endl;
+            adr_modul Q = P->firstModul;
+            if (Q == nullptr) {
+                cout << "   (Tidak ada modul)" << endl;
+            } else {
+                while (Q != nullptr) {
+                    cout << "   -> " << Q->info.judul
+                         << " [" << Q->info.durasi << "]" << endl;
+                    Q = Q->next;
+                }
             }
+            P = P->next;
         }
-        P = P->next;
     }
 }
 
@@ -97,52 +98,48 @@ void deleteDataKursus(List_Kursus &L) {
     cout << "Hapus Kode Kursus: ";
     cin >> targetKode;
     
-    if (L.first == nullptr) return;
-    
-    adr_kursus P = L.first;
-    adr_kursus prev = nullptr;
-    
-    while(P != nullptr && P->info.kodeKursus != targetKode) {
-        prev = P;
-        P = P->next;
-    }
-    
-    if (P != nullptr) {
-        while (P->firstModul != nullptr) {
-            string judulModul = P->firstModul->info.judul;
-            deleteModulFromKursus(P, judulModul); 
+    if (L.first != nullptr) {
+        adr_kursus P = L.first;
+        adr_kursus prev = nullptr;
+
+        while(P != nullptr && P->info.kodeKursus != targetKode) {
+            prev = P;
+            P = P->next;
         }
-        if (P == L.first) {
-            L.first = P->next;
+
+        if (P != nullptr) {
+            if (P == L.first) {
+                L.first = P->next;
+            } else {
+                prev->next = P->next;
+            }
+            P->next = nullptr;
+            cout << "Kursus beserta modulnya berhasil di-unlink." << endl;
         } else {
-            prev->next = P->next;
+            cout << "Kursus tidak ditemukan." << endl;
         }
-        P->next = nullptr;
-        
-        cout << "Kursus beserta modulnya berhasil di-unlink." << endl;
-    } else {
-        cout << "Kursus tidak ditemukan." << endl;
     }
 }
 
 void showStatistics(List_Kursus L) {
     if (L.first == nullptr) {
-        cout << "Data Kosong." << endl; return;
-    }
-    adr_kursus P = L.first, maxP = P, minP = P;
-    int maxV = countModul(P), minV = countModul(P);
+        cout << "Data Kosong." << endl;
+    } else {
+        adr_kursus P = L.first, maxP = P, minP = P;
+        int maxV = countModul(P), minV = countModul(P);
 
-    P = P->next;
-    while (P != nullptr) {
-        int curV = countModul(P);
-        if (curV > maxV) { maxV = curV; maxP = P; }
-        if (curV < minV) { minV = curV; minP = P; }
         P = P->next;
-    }
+        while (P != nullptr) {
+            int curV = countModul(P);
+            if (curV > maxV) { maxV = curV; maxP = P; }
+            if (curV < minV) { minV = curV; minP = P; }
+            P = P->next;
+        }
 
-    cout << "=== STATISTIK ===" << endl;
-    cout << "Terbanyak : " << maxP->info.namaKursus << " (" << maxV << ")" << endl;
-    cout << "Tersedikit: " << minP->info.namaKursus << " (" << minV << ")" << endl;
+        cout << "=== STATISTIK ===" << endl;
+        cout << "Terbanyak : " << maxP->info.namaKursus << " (" << maxV << ")" << endl;
+        cout << "Tersedikit: " << minP->info.namaKursus << " (" << minV << ")" << endl;
+    }
 }
 
 void header() {
@@ -165,7 +162,6 @@ void main_menu(List_Kursus &L) {
         cout << "0. Keluar" << endl;
         cout << "Pilihan: ";
         cin >> pilihan;
-        // Tidak ada cin.ignore() di sini
 
         switch(pilihan) {
             case 1: addDataKursus(L); break;
