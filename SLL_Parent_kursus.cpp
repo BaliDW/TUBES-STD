@@ -1,4 +1,5 @@
 #include "parent.h"
+#include "child.h"
 
 void createList(List_Kursus &L) {
     L.first = nullptr;
@@ -15,7 +16,9 @@ void createKursus(string nama, string kode, adr_kursus &P) {
 void insertLastKursus(List_Kursus &L, adr_kursus P) {
     if (L.first == nullptr) {
         L.first = P;
-    } else {
+    } else if (searchKursus(L, P->info.kodeKursus) != nullptr) {
+        cout << "Kursus dengan kode " << P->info.kodeKursus << " sudah ada." << endl;
+    } else{
         adr_kursus Q = L.first;
         while (Q->next != nullptr) {
             Q = Q->next;
@@ -49,23 +52,26 @@ void deleteModulFromKursus(adr_kursus P, string judulModul) {
     if (P->firstModul != nullptr) {
         adr_modul C = P->firstModul;
         bool found = false;
-        
-        while (C != nullptr && !found) {
-            if (C->info.judul == judulModul) {
-                if (C == P->firstModul) {
-                    P->firstModul = C->next;
-                    if (P->firstModul != nullptr) {
-                        P->firstModul->prev = nullptr;
+        if (searchModul(P, judulModul) == nullptr) {
+            cout << "Modul dengan judul " << judulModul << " tidak ditemukan." << endl;
+        } else {
+            while (C != nullptr && !found) {
+                if (C->info.judul == judulModul) {
+                    if (C == P->firstModul) {
+                        P->firstModul = C->next;
+                        if (P->firstModul != nullptr) {
+                            P->firstModul->prev = nullptr;
+                        }
+                    } else if (C->next == nullptr) {
+                        C->prev->next = nullptr;
+                    } else {
+                        C->prev->next = C->next; 
+                        C->next->prev = C->prev; 
                     }
-                } else if (C->next == nullptr) {
-                    C->prev->next = nullptr;
+                    found = true;
                 } else {
-                    C->prev->next = C->next; 
-                    C->next->prev = C->prev; 
+                    C = C->next;
                 }
-                found = true;
-            } else {
-                C = C->next;
             }
         }
     }

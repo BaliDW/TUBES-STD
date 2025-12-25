@@ -129,26 +129,31 @@ void showStatistics(List_Kursus L) {
     if (L.first == nullptr) {
         cout << "Data Kosong." << endl;
     } else {
-        adr_kursus P = L.first, maxP = P, minP = P;
-        int maxV = countModul(P), minV = countModul(P);
-
-        P = P->next;
+        cout << "\n=== STATISTIK KURSUS ===" << endl;
+        cout << "\nDAFTAR KURSUS:" << endl;
+        adr_kursus P = L.first;
+        adr_kursus maxP = P;
+        int maxV = countModul(P);
+        int nomor = 1;
+        
         while (P != nullptr) {
-            int curV = countModul(P);
-            if (curV > maxV) { 
-                maxV = curV; 
-                maxP = P; 
+            int jumlahModul = countModul(P);
+            cout << nomor << ". " << P->info.namaKursus 
+                 << " (" << P->info.kodeKursus << ") - "
+                 << jumlahModul << " modul" << endl;
+            
+            if (jumlahModul > maxV) {
+                maxV = jumlahModul;
+                maxP = P;
             }
-            if (curV < minV) { 
-                minV = curV; 
-                minP = P; 
-            }
+            
+            nomor++;
             P = P->next;
         }
-
-        cout << "=== STATISTIK ===" << endl;
-        cout << "Terbanyak : " << maxP->info.namaKursus << " (" << maxV << ")" << endl;
-        cout << "Tersedikit: " << minP->info.namaKursus << " (" << minV << ")" << endl;
+        
+        cout << "\nKURSUS TERBANYAK: " << maxP->info.namaKursus 
+             << " (" << maxP->info.kodeKursus << ") dengan " 
+             << maxV << " modul" << endl;
     }
 }
 

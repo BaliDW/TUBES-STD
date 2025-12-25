@@ -1,6 +1,6 @@
 #ifndef CHILD_H_INCLUDED
 #define CHILD_H_INCLUDED
-
+#include "parent.h"
 #include <iostream>
 using namespace std;
 
@@ -19,5 +19,6 @@ struct elm_modul {
 };
 
 void createModul(string judul, string durasi, string diff, adr_modul &M);
+adr_modul searchModul(adr_kursus P, string judulModul);
 
 #endif // CHILD_H_INCLUDED
