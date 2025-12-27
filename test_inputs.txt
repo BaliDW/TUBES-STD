@@ -1,0 +1,210 @@
+=== BAGIAN 1: INPUT DATA UTAMA (5 Kursus, 3-10 Modul) ===
+(Copy paste bagian ini baris per baris atau sekaligus untuk mengisi data awal)
+
+1
+Struktur_Data
+STD
+1
+Algoritma_Pemrograman
+ALPRO
+1
+Basis_Data
+BD
+1
+Jaringan_Komputer
+JARKOM
+1
+Sistem_Operasi
+SO
+2
+STD
+Intro_Linked_List
+100menit
+Easy
+2
+STD
+Double_Linked_List
+120menit
+Medium
+2
+STD
+Circular_List
+90menit
+Hard
+2
+ALPRO
+Pengenalan_C++
+60menit
+Easy
+2
+ALPRO
+Percabangan
+50menit
+Easy
+2
+ALPRO
+Perulangan
+60menit
+Medium
+2
+ALPRO
+Array
+80menit
+Medium
+2
+BD
+ERD
+90menit
+Medium
+2
+BD
+Normalisasi
+100menit
+Hard
+2
+BD
+SQL_Basic
+60menit
+Easy
+2
+BD
+Relational_Algebra
+110menit
+Hard
+2
+BD
+Indexing
+70menit
+Medium
+2
+JARKOM
+OSI_Layer
+50menit
+Easy
+2
+JARKOM
+IP_Address
+60menit
+Medium
+2
+JARKOM
+Subnetting
+120menit
+Hard
+2
+SO
+Process
+60menit
+Medium
+2
+SO
+Thread
+70menit
+Medium
+2
+SO
+Scheduling
+80menit
+Hard
+2
+SO
+Deadlock
+90menit
+Hard
+2
+SO
+Memory_Management
+100menit
+Hard
+2
+SO
+Virtual_Memory
+110menit
+Hard
+2
+SO
+File_System
+60menit
+Medium
+2
+SO
+IO_Management
+70menit
+Medium
+2
+SO
+Security
+80menit
+Hard
+2
+SO
+Linux_Command
+50menit
+Easy
+
+=== BAGIAN 2: PENGECEKAN FUNGSI MENU ===
+(Gunakan input ini setelah data di atas dimasukkan)
+
+3
+(Mengecek Tampilkan Semua - Seharusnya muncul 5 kursus dengan modul-modulnya)
+
+4
+JARKOM
+(Mengecek Cari Modul Kursus - Seharusnya muncul 3 modul JARKOM)
+
+7
+(Mengecek Statistik - Seharusnya SO menjadi kursus terbanyak dengan 10 modul)
+
+5
+STD
+Intro_Linked_List
+(Mengecek Hapus Modul - Intro_Linked_List harus hilang dari STD)
+
+3
+(Verifikasi penghapusan modul)
+
+6
+ALPRO
+(Mengecek Hapus Kursus - Kursus ALPRO beserta 4 modulnya harus hilang)
+
+3
+(Verifikasi penghapusan kursus - ALPRO sudah tidak ada)
+
+=== BAGIAN 3: PENCARIAN BUG & ERROR (EDGE CASES) ===
+(Input ini dirancang untuk mencoba merusak atau menguji batas program)
+
+1
+Kursus Spasi Error
+KSE
+(BUG POTENSIAL: Program menggunakan 'cin >>' untuk nama. Jika user mengetik spasi, 'Spasi' akan dianggap sebagai input berikutnya (Kode), dan 'Error' akan mengacaukan menu selanjutnya.)
+
+2
+TIDAKADA
+Modul_Hantu
+10menit
+Easy
+(TEST: Menambah modul ke kursus yang tidak ada. Seharusnya muncul pesan error "Kursus tidak ditemukan" dan tidak crash.)
+
+5
+TIDAKADA
+Modul_Hantu
+(TEST: Menghapus modul dari kursus yang tidak ada.)
+
+6
+TIDAKADA
+(TEST: Menghapus kursus yang tidak ada.)
+
+1
+Struktur_Data
+STD
+(TEST: Menambah kursus dengan KODE yang sama (STD sudah ada). Program mungkin mengizinkan duplikat yang bisa membingungkan fitur search/delete.)
+
+2
+STD
+Double_Linked_List
+100menit
+Medium
+(TEST: Menambah modul dengan JUDUL yang sama persis di kursus yang sama. Program mungkin mengizinkan duplikasi modul.)
+
+0
+(Keluar program)
