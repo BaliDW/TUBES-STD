@@ -6,11 +6,14 @@ void addDataKursus(List_Kursus &L) {
     cin >> nama;
     cout << "Masukkan Kode Kursus: ";
     cin >> kode;
-
-    adr_kursus P;
-    createKursus(nama, kode, P);
-    insertLastKursus(L, P);
+    if (searchKursus(L, kode) != nullptr) {
+        cout << "Kursus sudah ada!" << endl;
+    } else {
+        adr_kursus P;
+        createKursus(nama, kode, P);
+        insertLastKursus(L, P);
     cout << "Kursus berhasil dibuat." << endl;
+    }
 }
 
 void addDataModul(List_Kursus &L) {
@@ -19,18 +22,22 @@ void addDataModul(List_Kursus &L) {
     cin >> targetKode;
 
     adr_kursus P = searchKursus(L, targetKode);
+    adr_modul Q = searchModul(P, targetKode);
+    cout << "Judul Modul: ";
+    cin >> judul;
+    cout << "Durasi: ";
+    cin >> durasi;
+    cout << "Kesulitan: ";
+    cin >> diff;
     if (P != nullptr) {
-        cout << "Judul Modul: ";
-        cin >> judul;
-        cout << "Durasi: ";
-        cin >> durasi;
-        cout << "Kesulitan: ";
-        cin >> diff;
-
-        adr_modul M;
-        createModul(judul, durasi, diff, M);
-        insertModul(P, M);
-        cout << "Modul berhasil ditambahkan ke " << P->info.namaKursus << endl;
+        if (Q != nullptr) {
+            cout << "Modul sudah ada!" << endl;
+        } else {
+            adr_modul M;
+            createModul(judul, durasi, diff, M);
+            insertModul(P, M);
+            cout << "Modul berhasil ditambahkan ke " << P->info.namaKursus << endl;
+        }
     } else {
         cout << "Kursus tidak ditemukan!" << endl;
     }
@@ -87,7 +94,7 @@ void deleteDataModul(List_Kursus &L) {
         cout << "Judul Modul yg dihapus: ";
         cin >> judul;
         deleteModulFromKursus(P, judul);
-        cout << "Modul Dihapus" << endl;
+        cout << "Modul berhasil dihapus." << endl;
     } else {
         cout << "Kursus tidak ditemukan." << endl;
     }
@@ -118,7 +125,7 @@ void deleteDataKursus(List_Kursus &L) {
                 prev->next = P->next;
             }
             P->next = nullptr;
-            cout << "Kursus beserta modulnya berhasil di-unlink." << endl;
+            cout << "Kursus berhasil dihapus." << endl;
         } else {
             cout << "Kursus tidak ditemukan." << endl;
         }
