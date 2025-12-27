@@ -132,63 +132,52 @@ void deleteDataKursus(List_Kursus &L) {
     }
 }
 
-void showStatistics(ListRelasi L, ListKursus LK, ListModul LM) {
-    if (LK.first == nullptr) {
+void showStatistics(List_Kursus L) {
+    if (L.first == nullptr) {
         cout << "Data kursus kosong." << endl;
     } else {
-    
-    cout << "\n=== STATISTIK PLATFORM PEMBELAJARAN ===" << endl;
-    
-    cout << "\n--- DAFTAR SEMUA MODUL ---" << endl;
-    if (LM.first == nullptr) {
-        cout << "Kursus tidak memiliki modul." << endl;
-    } else {
-        adr_modul M = LM.first;
+        cout << "\n=== STATISTIK PLATFORM PEMBELAJARAN ===" << endl;
+        
+        cout << "\n--- DAFTAR KURSUS & JUMLAH MODUL ---" << endl;
+        adr_kursus K = L.first;
+        adr_kursus maxK = K;
+        adr_kursus minK = K;
+        
+        int maxCount = countModul(K);
+        int minCount = maxCount;
         int nomor = 1;
-        while (M != nullptr) {
-            cout << nomor << ". " << M->info.judul 
-                 << " | Durasi: " << M->info.durasi 
-                 << " | Kesusahan: " << M->info.difficulty << endl;
+        
+        while (K != nullptr) {
+            int jumlahModul = countModul(K);
+            cout << nomor << ". " << K->info.namaKursus 
+                 << " (" << K->info.kodeKursus << ") - "
+                 << jumlahModul << " modul" << endl;
+            
+            if (jumlahModul > maxCount) {
+                maxCount = jumlahModul;
+                maxK = K;
+            }
+            
+            if (jumlahModul < minCount) {
+                minCount = jumlahModul;
+                minK = K;
+            }
+            
             nomor++;
-            M = M->next;
-        }
-    }
-    
-    cout << "\n--- DAFTAR KURSUS & JUMLAH MODUL ---" << endl;
-    adr_kursus K = LK.first;
-    adr_kursus maxK = K;
-    adr_kursus minK = K;
-    int maxCount = hitungJumlahModulDalamKursus(L, K->info.kodeKursus);
-    int minCount = maxCount;
-    int nomor = 1;
-    
-    while (K != nullptr) {
-        int jumlahModul = hitungJumlahModulDalamKursus(L, K->info.kodeKursus);
-        cout << nomor << ". " << K->info.namaKursus 
-             << " (" << K->info.kodeKursus << ") - "
-             << jumlahModul << " modul" << endl;
-        
-        if (jumlahModul > maxCount) {
-            maxCount = jumlahModul;
-            maxK = K;
+            K = K->next;
         }
         
-        if (jumlahModul < minCount) {
-            minCount = jumlahModul;
-            minK = K;
+        cout << "\n--- ANALISIS ---" << endl;
+        if (maxK != nullptr) {
+            cout << "Kursus dengan Modul TERBANYAK: " << maxK->info.namaKursus 
+                 << " (" << maxK->info.kodeKursus << ") dengan " 
+                 << maxCount << " modul" << endl;
         }
-        
-        nomor++;
-        K = K->next;
-    }
-    
-    cout << "\n--- ANALISIS ---" << endl;
-    cout << "Kursus dengan Modul TERBANYAK: " << maxK->info.namaKursus 
-         << " (" << maxK->info.kodeKursus << ") dengan " 
-         << maxCount << " modul" << endl;
-    cout << "Kursus dengan Modul TERSEDIKIT: " << minK->info.namaKursus 
-         << " (" << minK->info.kodeKursus << ") dengan " 
-         << minCount << " modul" << endl;
+        if (minK != nullptr) {
+            cout << "Kursus dengan Modul TERSEDIKIT: " << minK->info.namaKursus 
+                 << " (" << minK->info.kodeKursus << ") dengan " 
+                 << minCount << " modul" << endl;
+        }
     }
 }
 
