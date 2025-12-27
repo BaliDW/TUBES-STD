@@ -1,6 +1,9 @@
 #include "menu.h"
 
 void addDataKursus(List_Kursus &L) {
+// I.S. List L terdefinisi (bisa kosong). Pengguna akan diminta memasukkan data kursus.
+// F.S. Jika kode kursus belum ada, elemen kursus baru terbentuk dan dimasukkan ke akhir List L (Insert Last).
+//      Jika kode sudah ada, menampilkan pesan kesalahan dan data tidak masuk.
     string nama, kode;
     cout << "Masukkan Nama Kursus: ";
     cin >> nama;
@@ -17,6 +20,9 @@ void addDataKursus(List_Kursus &L) {
 }
 
 void addDataModul(List_Kursus &L) {
+// I.S. List L terdefinisi. Pengguna akan diminta memasukkan kode kursus tujuan dan data modul.
+// F.S. Jika kursus ditemukan dan modul belum ada di kursus tersebut, modul baru ditambahkan ke dalam kursus (Insert Modul).
+//      Jika kursus tidak ada atau modul duplikat, menampilkan pesan kesalahan.
     string targetKode, judul, durasi, diff;
     cout << "Masukkan Kode Kursus Tujuan: ";
     cin >> targetKode;
@@ -44,6 +50,9 @@ void addDataModul(List_Kursus &L) {
 }
 
 void showAll(List_Kursus L) {
+// I.S. List L terdefinisi (bisa kosong).
+// F.S. Menampilkan seluruh data Kursus beserta Modul-modul yang ada di dalamnya ke layar.
+//      Jika list kosong, menampilkan pesan "Data Kosong".
     if (L.first == nullptr) {
         cout << "Data Kosong." << endl;
     } else {
@@ -67,6 +76,9 @@ void showAll(List_Kursus L) {
 }
 
 void showModulOfKursus(List_Kursus L) {
+// I.S. List L terdefinisi. Pengguna diminta input kode kursus yang dicari.
+// F.S. Jika kursus ditemukan, menampilkan daftar modul milik kursus tersebut.
+//      Jika tidak, menampilkan pesan kursus tidak ditemukan.
     string targetKode;
     cout << "Cari Kode Kursus: ";
     cin >> targetKode;
@@ -85,6 +97,8 @@ void showModulOfKursus(List_Kursus L) {
 }
 
 void deleteDataModul(List_Kursus &L) {
+// I.S. List L terdefinisi. Pengguna input kode kursus dan judul modul yang akan dihapus.
+// F.S. Jika kursus dan modul ditemukan, elemen modul dihapus dari list modul milik kursus tersebut (Delete Child).
     string targetKode, judul;
     cout << "Kode Kursus: ";
     cin >> targetKode;
@@ -101,10 +115,13 @@ void deleteDataModul(List_Kursus &L) {
 }
 
 void deleteDataKursus(List_Kursus &L) {
+// I.S. List L terdefinisi. Pengguna input kode kursus yang akan dihapus.
+// F.S. Jika kursus ditemukan, seluruh modul di dalamnya dihapus terlebih dahulu,
+//      kemudian elemen kursus dihapus dari List L (Delete Parent & All Children).
     string targetKode;
     cout << "Hapus Kode Kursus: ";
     cin >> targetKode;
-    
+
     if (L.first != nullptr) {
         adr_kursus P = L.first;
         adr_kursus prev = nullptr;
@@ -133,63 +150,70 @@ void deleteDataKursus(List_Kursus &L) {
 }
 
 void showStatistics(List_Kursus L) {
+// I.S. List L terdefinisi.
+// F.S. Menampilkan statistik jumlah modul per kursus, serta kursus dengan modul terbanyak dan tersedikit.
     if (L.first == nullptr) {
         cout << "Data kursus kosong." << endl;
     } else {
         cout << "\n=== STATISTIK PLATFORM PEMBELAJARAN ===" << endl;
-        
+
         cout << "\n--- DAFTAR KURSUS & JUMLAH MODUL ---" << endl;
         adr_kursus K = L.first;
         adr_kursus maxK = K;
         adr_kursus minK = K;
-        
+
         int maxCount = countModul(K);
         int minCount = maxCount;
         int nomor = 1;
-        
+
         while (K != nullptr) {
             int jumlahModul = countModul(K);
-            cout << nomor << ". " << K->info.namaKursus 
+            cout << nomor << ". " << K->info.namaKursus
                  << " (" << K->info.kodeKursus << ") - "
                  << jumlahModul << " modul" << endl;
-            
+
             if (jumlahModul > maxCount) {
                 maxCount = jumlahModul;
                 maxK = K;
             }
-            
+
             if (jumlahModul < minCount) {
                 minCount = jumlahModul;
                 minK = K;
             }
-            
+
             nomor++;
             K = K->next;
         }
-        
+
         cout << "\n--- ANALISIS ---" << endl;
         if (maxK != nullptr) {
-            cout << "Kursus dengan Modul TERBANYAK: " << maxK->info.namaKursus 
-                 << " (" << maxK->info.kodeKursus << ") dengan " 
+            cout << "Kursus dengan Modul TERBANYAK: " << maxK->info.namaKursus
+                 << " (" << maxK->info.kodeKursus << ") dengan "
                  << maxCount << " modul" << endl;
         }
         if (minK != nullptr) {
-            cout << "Kursus dengan Modul TERSEDIKIT: " << minK->info.namaKursus 
-                 << " (" << minK->info.kodeKursus << ") dengan " 
+            cout << "Kursus dengan Modul TERSEDIKIT: " << minK->info.namaKursus
+                 << " (" << minK->info.kodeKursus << ") dengan "
                  << minCount << " modul" << endl;
         }
     }
 }
 
 void header() {
+// I.S. Sembarang.
+// F.S. Menampilkan judul aplikasi (Header) ke layar.
     cout << "\n==============================" << endl;
     cout << "   PLATFORM KURSUS & MODUL    " << endl;
     cout << "==============================" << endl;
 }
 
 void main_menu(List_Kursus &L) {
-    int pilihan;
-    do {
+// I.S. List L terdefinisi (biasanya kosong saat program baru mulai).
+// F.S. Menampilkan menu interaktif terus menerus hingga user memilih angka 0 (Keluar).
+//      List L mungkin berubah isinya sesuai pilihan user (tambah/hapus).
+    int pilihan = -1;
+    while (pilihan != 0) {
         header();
         cout << "1. Tambah Kursus" << endl;
         cout << "2. Tambah Modul" << endl;
@@ -211,5 +235,5 @@ void main_menu(List_Kursus &L) {
             case 6: deleteDataKursus(L); break;
             case 7: showStatistics(L); break;
         }
-    } while (pilihan != 0);
+    };
 }
