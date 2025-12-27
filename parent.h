@@ -2,6 +2,7 @@
 #define PARENT_H_INCLUDED
 
 #include <iostream>
+#include <string>
 using namespace std;
 struct elm_modul;
 typedef struct elm_modul *adr_modul;
