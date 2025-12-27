@@ -2,8 +2,9 @@
 #define PARENT_H_INCLUDED
 
 #include <iostream>
-#include "child.h" 
 using namespace std;
+struct elm_modul;
+typedef struct elm_modul *adr_modul;
 
 struct infotype_kursus {
     string namaKursus;
@@ -21,6 +22,7 @@ struct elm_kursus {
 struct List_Kursus {
     adr_kursus first;
 };
+#include "child.h" 
 
 void createList(List_Kursus &L);
 void createKursus(string nama, string kode, adr_kursus &P);
